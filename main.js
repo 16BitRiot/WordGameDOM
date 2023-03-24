@@ -41,7 +41,6 @@ function displayDefinition(word, definition) {
   `;
 }
 
-
 function getWordOptions(word, wordList) {
   const wordOptions = [word, ...wordList.filter(w => w !== word).slice(0, 3)];
   displayWordOptions(wordOptions);
@@ -53,9 +52,14 @@ function displayWordOptions(wordOptions) {
   wordOptions.forEach(word => {
     const listItem = document.createElement('li');
     listItem.textContent = word;
+    listItem.addEventListener('click', () => {
+      getDefinition(word);
+    });
     wordOptionsList.appendChild(listItem);
   });
 }
 
 
-document.getElementById('start-btn').addEventListener('click', getRandomWord);
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('start-btn').addEventListener('click', getRandomWord);
+});

@@ -108,4 +108,3 @@ class Word {
   }
   
   export { Word, Game };
-  
