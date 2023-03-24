@@ -14,17 +14,6 @@ function getRandomWord() {
   fetch('https://random-word-form.herokuapp.com/random/adjective?count=4')
     .then(response => response.json())
     .then(data => {
-      const randomWord = data[0];
-      getDefinition(randomWord);
-      getWordOptions(randomWord);
-    })
-    .catch(error => console.log(error));
-}
-
-function getRandomWord() {
-  fetch('https://random-word-form.herokuapp.com/random/adjective?count=4')
-    .then(response => response.json())
-    .then(data => {
       const randomWords = data;
       displayWords(randomWords);
       getDefinition(randomWords[0]);
@@ -43,14 +32,19 @@ function displayWords(words) {
   });
 }
 
-
-
 function displayDefinition(word, definition) {
   const definitionDiv = document.getElementById('definition');
+  definitionDiv.innerHTML = '';
   definitionDiv.innerHTML = `
     <h2>${word}</h2>
     <p>${definition}</p>
   `;
+}
+
+
+function getWordOptions(word, wordList) {
+  const wordOptions = [word, ...wordList.filter(w => w !== word).slice(0, 3)];
+  displayWordOptions(wordOptions);
 }
 
 function displayWordOptions(wordOptions) {
@@ -62,5 +56,6 @@ function displayWordOptions(wordOptions) {
     wordOptionsList.appendChild(listItem);
   });
 }
+
 
 document.getElementById('start-btn').addEventListener('click', getRandomWord);
